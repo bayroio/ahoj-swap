@@ -1,0 +1,30 @@
+{
+  "name": "ahoj-swap",
+  "version": "1.0.0",
+  "description": "Components and Contracts that makes for a solution that allows for the flow of cash from one currency to another",
+  "main": "truffle-config.js",
+  "scripts": {
+    "test": "truffle test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bayroio/ahoj-swap.git"
+  },
+  "keywords": [
+    "bayro",
+    "ahoj",
+    "swap",
+    "avalanche",
+    "solidity"
+  ],
+  "author": "Escudero Alan",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/bayroio/ahoj-swap/issues"
+  },
+  "homepage": "https://github.com/bayroio/ahoj-swap#readme",
+  "dependencies": {
+    "@openzeppelin/contracts": "^3.3.0",
+    "@truffle/hdwallet-provider": "^1.2.0"
+  }
+}
