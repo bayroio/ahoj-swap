@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 contract AhojToken is ERC20 {
     //State Variables
     constructor() public ERC20("AhojToken", "AHOJ") {
-        _mint(msg.sender, 42069000000);
+        _mint(msg.sender, 42069000000000000000000);
     }
 }
 // 0x6d5ca7bF3AFE305AA1C093C441027264134869a8 Address

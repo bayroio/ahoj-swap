@@ -16,7 +16,7 @@ contract PriceOracleFactory {
         return address(oracle);
     }
 
-    function getOracles() public returns (address[] memory) {
+    function getOracles() public view returns (address[] memory) {
         return oracles;
     }
 }

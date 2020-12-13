@@ -14,14 +14,14 @@ module.exports = {
     fuji: {
       provider: () =>
         new HDWalletProvider({
-          privateKeys:['some-private-key'],
+          privateKeys: ['some-private-key'],
           providerOrUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
           pollingInterval: 500
         }),
         network_id: "*",
         gas: 3000000,
         gasPrice: 500000000000,
-        timeoutBlocks: 10000,
+        timeoutBlocks: 20000,
         deploymentPollingInterval: 500
     }
   }
