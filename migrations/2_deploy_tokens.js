@@ -1,8 +1,10 @@
-const PriceOracleFactory = artifacts.require("PriceOracleFactory");
-const PriceConsumer = artifacts.require("PriceConsumer");
+//const PriceOracleFactory = artifacts.require("PriceOracleFactory");
+//const PriceConsumer = artifacts.require("PriceConsumer");
 const AhojToken = artifacts.require("AhojToken");
+const AhojTokenB = artifacts.require("AhojTokenB");
 
 module.exports = function(deployer) {
+  /*
   deployer.deploy(PriceOracleFactory).then(() => {
     PriceOracleFactory.deployed().then(instance => {
       instance.newPriceOracle(596472000, "ETH / USD");
@@ -17,5 +19,7 @@ module.exports = function(deployer) {
   });
   deployer.link(PriceOracleFactory, PriceConsumer);
   deployer.deploy(PriceConsumer);
+  */
   deployer.deploy(AhojToken);
+  deployer.deploy(AhojTokenB);
 };

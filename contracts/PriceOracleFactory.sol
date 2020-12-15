@@ -1,9 +1,10 @@
 pragma solidity ^0.6.0;
 // Modify to make it Ownable
+import './PriceOracle.sol';
 
 contract PriceOracleFactory {
 
-    address[] private oracles;
+    address[] public oracles;
 
     event OracleCreated(address indexed oracleAddress);
     constructor() public {
@@ -16,32 +17,7 @@ contract PriceOracleFactory {
         return address(oracle);
     }
 
-    function getOracles() public view returns (address[] memory) {
-        return oracles;
-    }
-}
-
-contract PriceOracle {
-
-    int private price;
-    string private name;
-    constructor(int _price, string memory _name) public {
-        price = _price;
-        name = _name;
-    }
-
-    /**
-     * Returns the latest price
-     */
-    function latestAnswer() public view returns (int) {
-        return price;
-    }
-
-    function setPrice(int _price) public { //Modify so only Owner can change price
-        price = _price;
-    }
-
-    function getName() public view returns (string memory) {
-        return name;
+    function getOraclesLenght() external view returns (uint) {
+        return oracles.length;
     }
 }

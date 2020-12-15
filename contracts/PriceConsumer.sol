@@ -4,7 +4,7 @@
 
 pragma solidity ^0.6.0;
 
-import "./PriceOracleFactory.sol";
+import "./PriceOracle.sol";
 
 contract PriceConsumer {
 

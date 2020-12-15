@@ -1,4 +1,8 @@
-const HDWalletProvider = require('@truffle/hdwallet-provider')
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+const propertiesReader = require('properties-reader');
+
+const config = propertiesReader('./development.properties');
+const KEY = config.get('main.privatekeys');
 module.exports = {
   compilers: { 
     solc: { 
@@ -14,7 +18,7 @@ module.exports = {
     fuji: {
       provider: () =>
         new HDWalletProvider({
-          privateKeys: ['some-private-key'],
+          privateKeys: [KEY],
           providerOrUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
           pollingInterval: 500
         }),
