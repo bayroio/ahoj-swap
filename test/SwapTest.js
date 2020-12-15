@@ -31,6 +31,11 @@ contract('AhojJar', (accounts) => {
     const addressB = await instanceAhojJar.token2.call();
     assert.equal(addressB.valueOf(), instanceAhojTokenB.address, "Address2 of AhojJar must be AhojTokenB");
   });
+  it('Validate 0 AhojTokens in '+accounts[1]+' Account', async () => {
+    const instanceAhojToken = await AhojToken.deployed();
+    const balanceInit = await instanceAhojToken.balanceOf.call(accounts[1]);
+    assert.equal(balanceInit.valueOf(), 0, "Deposit was not made");
+  });
   it('Deposit 10000 AhojTokens to '+accounts[1]+' Account', async () => {
     const instanceAhojToken = await AhojToken.deployed();
     await instanceAhojToken.transfer(accounts[1], 10000);
