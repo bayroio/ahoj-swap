@@ -1,6 +1,7 @@
 pragma solidity ^0.6.0;
 
 import './interfaces/IAhojJar.sol';
+import './libraries/Math.sol';
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract AhojJar is IAhojJar {
@@ -19,8 +20,8 @@ contract AhojJar is IAhojJar {
     constructor(address _token1, address _token2) public {
         token1 = _token1;
         token2 = _token2;
-        value1 = 1;
-        value2 = 5;
+        value1 = 1000; // 1 TokenA = 10 Dollar (two ceros for decimals)
+        value2 = 200; // 1 TokenB = 2 Dollars (two ceros for decimals)
     }
 
     function getReserves() public view override returns (uint _reserves1, uint _reserves2) {
@@ -31,21 +32,24 @@ contract AhojJar is IAhojJar {
     function swap(uint _amountX, uint _amountY) external override {
         require(_amountX > 0 || _amountY > 0, 'Insuficient Amount');
         (uint _reserves1, uint _reserves2) = getReserves();
-        require(_amountX < _reserves1 && _amountY < _reserves2, 'Insuficient Liquidity');
         IERC20 _token1 = IERC20(token1);
         IERC20 _token2 = IERC20(token2);
+        uint _value1 = value1;
+        uint _value2 = value2;
         if(_amountX > 0) {
             require(_token1.allowance(msg.sender, address(this)) == _amountX, 
             'Allowance was not Made or not is Exactly the ammount required');
+            uint swapAmmount = Math.getSwapAmmount(_amountX, _value1, _value2);
+            require(_amountX < _reserves1 && swapAmmount < _reserves2, 'Insuficient Liquidity');
             transferAllowance(_token1, _amountX);
-            uint swapAmmount = _amountX*value2;
             transferSwap(_token2, swapAmmount);
         }
         if(_amountY > 0) {
             require(_token2.allowance(msg.sender, address(this)) == _amountY, 
             'Allowance was not Made or not is Exactly the ammount required');
+            uint swapAmmount = Math.getSwapAmmount(_amountY, _value2, _value1);
+            require(swapAmmount < _reserves1 && _amountY < _reserves2, 'Insuficient Liquidity');
             transferAllowance(_token2, _amountY);
-            uint swapAmmount = _amountY*value1;
             transferSwap(_token1, _amountY*value1);
         }
         reserves1 = _token1.balanceOf(address(this));
