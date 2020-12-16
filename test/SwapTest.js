@@ -61,21 +61,28 @@ contract('AhojJar', (accounts) => {
     const reserves = await instanceAhojJar.getReserves.call();
     assert.equal(reserves._reserves2, 400000, "Deposit was not made");
   });
-  // Upgrade by first validating the ammount of allowance and do the transfer of Token1 before doing Swaping
-  it('Simulate a 100 TokenAs to get 500 TokenBs using AhojJar', async () => {
+  it('Swap 100 TokenAs to get 500 TokenBs using AhojJar', async () => {
     const instanceAhojJar = await AhojJar.deployed();
     const instanceTokenA = await TokenA.deployed();
     const instanceTokenB = await TokenB.deployed();
     await instanceTokenA.approve(instanceAhojJar.address, 100, {from: accounts[1]});
     await instanceAhojJar.swap(100, 0, {from: accounts[1]});
     const balance = await instanceTokenB.balanceOf.call(accounts[1]);
-    assert.equal(balance.valueOf(), 500, "User"+accounts[1]+" dont have 500 TokenBs");
+    assert.equal(balance.valueOf(), 500, "User "+accounts[1]+" dont have 500 TokenBs");
   });
-  /*
-  it('Simulate a 100 TokenAs to get 500 TokenBs using AhojJar', async () => {
+  it('User '+accounts[1]+' must have now 100 less TokensA (9900)', async () => {
+    const instanceTokenA = await TokenA.deployed();
+    const balance = await instanceTokenA.balanceOf.call(accounts[1]);
+    assert.equal(balance.valueOf(), 9900, "User "+accounts[1]+" dont have 9900 TokenAs");
+  });
+  it('AhojJar must have 200100 TokenAs', async () => {
     const instanceAhojJar = await AhojJar.deployed();
     const reserves = await instanceAhojJar.getReserves.call();
-    assert.equal(reserves._reserves1, 200100, "VAL");
+    assert.equal(reserves._reserves1, 200100, "AhojJar doesn't have expected quantity");
   });
-  */
+  it('AhojJar must have 399500 TokenBs', async () => {
+    const instanceAhojJar = await AhojJar.deployed();
+    const reserves = await instanceAhojJar.getReserves.call();
+    assert.equal(reserves._reserves2, 399500, "AhojJar doesn't have expected quantity");
+  });
 });

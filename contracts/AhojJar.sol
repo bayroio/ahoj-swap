@@ -29,24 +29,30 @@ contract AhojJar {
         require(_amountX > 0 || _amountY > 0, 'Insuficient Amount');
         (uint _reserves1, uint _reserves2) = getReserves();
         require(_amountX < _reserves1 && _amountY < _reserves2, 'Insuficient Liquidity');
-        address _token1 = token1;
-        address _token2 = token2;
-        require(IERC20(_token1).allowance(msg.sender, address(this)) > 0 || IERC20(_token2).allowance(msg.sender, address(this)) > 0, 'Allowance not Made');
-        //if(_amountX > 0) checkAllowance(_token1, _amountX);
-        //if(_amountY > 0) checkAllowance(_token2, _amountY);
-        if(_amountX > 0) transfer(_token2, _amountX*value2);
-        if(_amountY > 0) transfer(_token1, _amountY*value1);
-        reserves1 = IERC20(token1).balanceOf(address(this));
-        reserves2 = IERC20(token2).balanceOf(address(this));
+        IERC20 _token1 = IERC20(token1);
+        IERC20 _token2 = IERC20(token2);
+        if(_amountX > 0) {
+            require(_token1.allowance(msg.sender, address(this)) == _amountX, 'Allowance was not Made or not is Exactly the ammount required');
+            transferAllowance(_token1, _amountX);
+            uint swapAmmount = _amountX*value2;
+            transferSwap(_token2, swapAmmount);
+        }
+        if(_amountY > 0) {
+            require(_token2.allowance(msg.sender, address(this)) == _amountY, 'Allowance was not Made or not is Exactly the ammount required');
+            transferAllowance(_token2, _amountY);
+            uint swapAmmount = _amountY*value1;
+            transferSwap(_token1, _amountY*value1);
+        }
+        reserves1 = _token1.balanceOf(address(this));
+        reserves2 = _token2.balanceOf(address(this));
     }
 
-    function transfer(address _token, uint _amount) private {
-        IERC20 token = IERC20(_token);
-        token.transfer(msg.sender, _amount);
+    function transferAllowance(IERC20 _token, uint _amount) private {
+        _token.transferFrom(msg.sender, address(this), _amount);
     }
 
-    function checkAllowance(address _token, uint _amount) private {
-        IERC20 token = IERC20(_token);
-        token.transfer(msg.sender, _amount);
+    function transferSwap(IERC20 _token, uint _amount) private {
+        _token.transfer(msg.sender, _amount);
     }
+    
 }
