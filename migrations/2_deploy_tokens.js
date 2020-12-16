@@ -1,7 +1,7 @@
 //const PriceOracleFactory = artifacts.require("PriceOracleFactory");
 //const PriceConsumer = artifacts.require("PriceConsumer");
-const AhojToken = artifacts.require("AhojToken");
-const AhojTokenB = artifacts.require("AhojTokenB");
+const TokenA = artifacts.require("TokenA");
+const TokenB = artifacts.require("TokenB");
 
 module.exports = function(deployer) {
   /*
@@ -20,6 +20,6 @@ module.exports = function(deployer) {
   deployer.link(PriceOracleFactory, PriceConsumer);
   deployer.deploy(PriceConsumer);
   */
-  deployer.deploy(AhojToken);
-  deployer.deploy(AhojTokenB);
+  deployer.deploy(TokenA);
+  deployer.deploy(TokenB);
 };

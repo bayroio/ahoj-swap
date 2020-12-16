@@ -31,6 +31,9 @@ contract AhojJar {
         require(_amountX < _reserves1 && _amountY < _reserves2, 'Insuficient Liquidity');
         address _token1 = token1;
         address _token2 = token2;
+        require(IERC20(_token1).allowance(msg.sender, address(this)) > 0 || IERC20(_token2).allowance(msg.sender, address(this)) > 0, 'Allowance not Made');
+        //if(_amountX > 0) checkAllowance(_token1, _amountX);
+        //if(_amountY > 0) checkAllowance(_token2, _amountY);
         if(_amountX > 0) transfer(_token2, _amountX*value2);
         if(_amountY > 0) transfer(_token1, _amountY*value1);
         reserves1 = IERC20(token1).balanceOf(address(this));
@@ -38,6 +41,11 @@ contract AhojJar {
     }
 
     function transfer(address _token, uint _amount) private {
+        IERC20 token = IERC20(_token);
+        token.transfer(msg.sender, _amount);
+    }
+
+    function checkAllowance(address _token, uint _amount) private {
         IERC20 token = IERC20(_token);
         token.transfer(msg.sender, _amount);
     }
