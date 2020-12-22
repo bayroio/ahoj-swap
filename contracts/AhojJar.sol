@@ -15,6 +15,9 @@ contract AhojJar is IAhojJar {
     uint private value1;
     uint private value2;
 
+    uint private FEE_PORCENT = 30; // This means 30%
+    uint private Product;
+
     event Swap(address indexed token, uint amount, address indexed to);
 
     constructor(address _token1, address _token2) public {
@@ -63,6 +66,11 @@ contract AhojJar is IAhojJar {
     function transferSwap(IERC20 _token, uint _amount) private {
         _token.transfer(msg.sender, _amount);
         emit Swap(address(_token), _amount, msg.sender);
+    }
+
+    function updatePrices(uint _value1, uint _value2) private {
+        (uint _reserves1, uint _reserves2) = getReserves();
+        
     }
     
 }

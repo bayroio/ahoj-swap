@@ -2,7 +2,7 @@ const AhojJar = artifacts.require("AhojJar");
 const TokenA = artifacts.require("TokenA");
 const TokenB = artifacts.require("TokenB");
 
-contract('TokenA', (accounts) => {
+contract('Prueba inicial', (accounts) => {
   it('Account '+accounts[0]+' must have have 4200000 TokenAs', async () => {
     const instanceTokenA = await TokenA.deployed();
     const balance = await instanceTokenA.balanceOf.call(accounts[0]);
