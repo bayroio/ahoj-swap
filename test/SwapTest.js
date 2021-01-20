@@ -34,7 +34,12 @@ contract('AhojJar', (accounts) => {
   it('Validate 0 TokenAs in '+accounts[1]+' Account', async () => {
     const instanceTokenA = await TokenA.deployed();
     const balanceInit = await instanceTokenA.balanceOf.call(accounts[1]);
-    assert.equal(balanceInit.valueOf(), 0, "Deposit was not made");
+    assert.equal(balanceInit.valueOf(), 0, "Account "+accounts[1]+" must have 0 TokenA");
+  });
+  it('Validate 0 TokenBs in '+accounts[1]+' Account', async () => {
+    const instanceTokenB = await TokenB.deployed();
+    const balanceInit = await instanceTokenB.balanceOf.call(accounts[1]);
+    assert.equal(balanceInit.valueOf(), 0, "Account "+accounts[1]+" must have 0 TokenB");
   });
   it('Deposit 10000 TokenAs to '+accounts[1]+' Account', async () => {
     const instanceTokenA = await TokenA.deployed();
@@ -61,6 +66,7 @@ contract('AhojJar', (accounts) => {
     const reserves = await instanceAhojJar.getReserves.call();
     assert.equal(reserves._reserves2, 400000, "Deposit was not made");
   });
+  //Este es la prueba mas importante
   it('Swap 100 TokenAs to get 500 TokenBs using AhojJar', async () => {
     const instanceAhojJar = await AhojJar.deployed();
     const instanceTokenA = await TokenA.deployed();
