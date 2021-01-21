@@ -67,24 +67,24 @@ contract('AhojJar', (accounts) => {
     assert.equal(reserves._reserves2, 2000000, "Deposit was not made");
   });
   //Este es la prueba mas importante
-  it('Swap 10000 TokenBs to get 4960 TokenAs using AhojJar', async () => {
+  it('Swap 10000 TokenBs to get 4961 TokenAs using AhojJar', async () => {
     const instanceAhojJar = await AhojJar.deployed();
     const instanceTokenA = await TokenA.deployed();
     const instanceTokenB = await TokenB.deployed();
     await instanceTokenB.approve(instanceAhojJar.address, 10000, {from: accounts[1]});
     await instanceAhojJar.swap(0, 10000, {from: accounts[1]});
     const balance = await instanceTokenA.balanceOf.call(accounts[1]);
-    assert.equal(balance.valueOf(), 4960, "User "+accounts[1]+" dont have 4960 TokenAs");
+    assert.equal(balance.valueOf(), 4961, "User "+accounts[1]+" dont have 4961 TokenAs");
   });
   it('User '+accounts[1]+' must have now 10000 less TokensB (90000)', async () => {
     const instanceTokenB = await TokenB.deployed();
     const balance = await instanceTokenB.balanceOf.call(accounts[1]);
     assert.equal(balance.valueOf(), 90000, "User "+accounts[1]+" dont have 90000 TokenAs");
   });
-  it('AhojJar must have 995040 TokenAs', async () => {
+  it('AhojJar must have 995039 TokenAs', async () => {
     const instanceAhojJar = await AhojJar.deployed();
     const reserves = await instanceAhojJar.getReserves.call();
-    assert.equal(reserves._reserves1, 995040, "AhojJar doesn't have expected quantity");
+    assert.equal(reserves._reserves1, 995039, "AhojJar doesn't have expected quantity");
   });
   it('AhojJar must have 2010000 TokenBs', async () => {
     const instanceAhojJar = await AhojJar.deployed();

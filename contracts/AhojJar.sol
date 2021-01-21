@@ -51,11 +51,11 @@ contract AhojJar is IAhojJar {
             //emit Alert("MSG: B",_amountY);
             require(_token2.allowance(msg.sender, address(this)) == _amountY, 
             'ERR: Allowance was not Made or not is Exactly the ammount required');
-            uint swapAmmount = Math.getSwapAmmount(_amountY, _reserves2, _reserves1);
-            emit Alert("MSG: A",swapAmmount);
-            //require(swapAmmount < _reserves1 && _amountY < _reserves2, 'ERR: Insuficient Liquidity');
-            //transferAllowance(_token2, _amountY);
-            //transferSwap(_token1, _amountY*value1);
+            uint _swapAmmount = Math.getSwapAmmount(_reserves1, _reserves2, FEE_PORCENT, _amountY);
+            require(_swapAmmount < _reserves1, 'ERR: Insuficient Liquidity');
+            transferAllowance(_token2, _amountY);
+            transferSwap(_token1, _swapAmmount);
+            emit Alert("MSG: A", _swapAmmount);
         }
         reserves1 = _token1.balanceOf(address(this));
         reserves2 = _token2.balanceOf(address(this));
