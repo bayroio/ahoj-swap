@@ -92,8 +92,8 @@ contract('AhojJar Case A', (accounts) => {
   });
   it('New change must be 20200', async () => {
     const instanceAhojJar = await AhojJar.deployed();
-    const reserves = await instanceAhojJar.getReserves.call();
-    assert.equal(reserves._reserves2/reserves._reserves1, 20200, "AhojJar exchange rate is not Correct");
+    const exchange = await instanceAhojJar.getChangeValue.call();
+    assert.equal(exchange, 20200, "AhojJar exchange rate is not Correct");
   });
 });
 
@@ -142,9 +142,9 @@ contract('AhojJar Case B', (accounts) => {
     const reserves = await instanceAhojJar.getReserves.call();
     assert.equal(reserves._reserves2, 1990079, "AhojJar doesn't have expected quantity");
   });
-  it('New change must be 19802', async () => {
+  it('New change must be 19801', async () => {
     const instanceAhojJar = await AhojJar.deployed();
     const exchange = await instanceAhojJar.getChangeValue.call();
-    assert.equal(exchange, 19802, "AhojJar exchange rate is not Correct");
+    assert.equal(exchange, 19801, "AhojJar exchange rate is not Correct");
   });
 });

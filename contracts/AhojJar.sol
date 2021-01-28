@@ -9,7 +9,7 @@ contract AhojJar is IAhojJar {
     address public token1;
     address public token2;
 
-    uint private FEE_PORCENT = 30; // 10000 Are equals to 100%
+    uint private constant FEE_PORCENT = 30; // 10000 Are equals to 100%
 
     event Swap(address indexed token, uint amount, address indexed to);
     event Alert(string message, uint amount);
@@ -58,8 +58,7 @@ contract AhojJar is IAhojJar {
 
     function getChangeValue() public view returns(uint _result) {
         (uint _reserves1, uint _reserves2) = getReserves();
-        uint result = _reserves2/_reserves1;
-        _result = result;
+        _result = Math.getEfectivePrice(_reserves1, _reserves2);
     }
     
 }
