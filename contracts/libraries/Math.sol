@@ -2,7 +2,8 @@ pragma solidity ^0.6.0;
 import "@openzeppelin/contracts/math/SafeMath.sol";
 
 library Math {
-
+    
+    using SafeMath for uint;
     uint private constant DECIMALS = 4;
     function getSwapAmmount(uint _assetOut, uint _assetIn,uint _fee, uint _input) internal pure returns (uint _result) {
         uint _product = _assetOut * _assetIn;
