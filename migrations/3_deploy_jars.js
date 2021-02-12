@@ -1,7 +1,5 @@
-const TokenA = artifacts.require("TokenA");
-const TokenB = artifacts.require("TokenB");
-const AhojJar = artifacts.require("AhojJar");
+const AhojJarFactory = artifacts.require("AhojJarFactory");
 
 module.exports = function(deployer) {
-  deployer.deploy(AhojJar, TokenA.address, TokenB.address);
+  deployer.deploy(AhojJarFactory);
 };

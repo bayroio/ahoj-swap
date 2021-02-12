@@ -30,6 +30,15 @@ module.exports = {
         gasPrice: 470000000000,
         timeoutBlocks: 100000,
         deploymentPollingInterval: 5000
+    },
+    test: { //Quorum TEST
+      provider: () =>
+        new HDWalletProvider(KEY1, 'http://189.197.77.190:8545'),
+        network_id: "*",
+        gas: 45000000,
+        gasPrice: 0,
+        timeoutBlocks: 10000000,
+        type: "quorum"
     }
   }
 };

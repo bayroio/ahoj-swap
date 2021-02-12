@@ -2,6 +2,7 @@
 //const PriceConsumer = artifacts.require("PriceConsumer");
 const TokenA = artifacts.require("TokenA");
 const TokenB = artifacts.require("TokenB");
+const TokenC = artifacts.require("TokenC");
 
 module.exports = function(deployer) {
   /*
@@ -22,4 +23,5 @@ module.exports = function(deployer) {
   */
   deployer.deploy(TokenA);
   deployer.deploy(TokenB);
+  deployer.deploy(TokenC);
 };
